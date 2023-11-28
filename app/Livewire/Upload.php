@@ -10,6 +10,7 @@ use Nette\NotImplementedException;
 use Pion\Laravel\ChunkUpload\Handler\ContentRangeUploadHandler;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use function method_exists;
+use function storage_path;
 
 class Upload extends Component
 {
@@ -34,7 +35,7 @@ class Upload extends Component
         if ($save->isFinished()) {
             // $save->getFile();
             return response()->json([
-               'file' => $save->getFile()->getRealPath(),
+               'file' => $save->getFile()->getFilename(),
             ]);
         }
 
@@ -43,7 +44,7 @@ class Upload extends Component
 
     public function handleSuccess(string $name, string $path)
     {
-        $this->onSuccess(new UploadedFile($path, $name));
+        $this->onSuccess(new UploadedFile(storage_path('app/chunks/'. $path), $name));
     }
 
     public function render(): View
