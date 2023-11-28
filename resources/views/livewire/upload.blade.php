@@ -8,10 +8,9 @@
             if (!file) {
                 return
             }
-
             this.uploader = createUpload({
                 file,
-                endpoint: '{{ route('files.store') }}',
+                endpoint: '{{ route('livewire.upload') }}?name=' + file.name,
                 method: 'post',
                 headers: {
                   'X-CSRF-TOKEN': '{{ csrf_token() }}',

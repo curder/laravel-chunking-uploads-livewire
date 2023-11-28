@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Upload;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,6 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
-Route::post('files', function() {})->name('files.store');
+Route::middleware(['auth'])
+    ->post('livewire/upload', [Upload::class, 'handleChunk'])
+    ->name('livewire.upload');
