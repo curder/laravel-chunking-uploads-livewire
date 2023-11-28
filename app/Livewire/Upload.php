@@ -6,11 +6,20 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Livewire\Component;
+use Nette\NotImplementedException;
 use Pion\Laravel\ChunkUpload\Handler\ContentRangeUploadHandler;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+use function method_exists;
 
 class Upload extends Component
 {
+
+    public function mount(): void
+    {
+        if (!method_exists($this, 'onSuccess')) {
+            throw new NotImplementedException();
+        }
+    }
 
     public function handleChunk(Request $request)
     {
@@ -30,6 +39,11 @@ class Upload extends Component
         }
 
         $save->handler();
+    }
+
+    public function handleSuccess(string $name, string $path)
+    {
+        $this->onSuccess(new UploadedFile($path, $name));
     }
 
     public function render(): View
