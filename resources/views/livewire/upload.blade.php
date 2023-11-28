@@ -4,8 +4,11 @@
         progress: 0,
         cancel() {
             this.uploader.abort()
-            this.uploader = null
-            this.progress = 0
+
+            $nextTick(() => {
+                this.uploader = null
+                this.progress = 0
+            })
         },
         submit() {
             const file = $refs.file.files[0]
