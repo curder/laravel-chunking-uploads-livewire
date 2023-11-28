@@ -13,5 +13,7 @@ class SpecificUpload extends Upload
             'name' => $file->getClientOriginalName(),
             'path' => $file->storeAs('files', Str::uuid() . '.' . $file->getClientOriginalExtension(), 'public')
         ]);
+
+        $this->dispatch('refresh')->component(FileIndex::class);
     }
 }
