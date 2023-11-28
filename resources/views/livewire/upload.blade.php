@@ -2,7 +2,11 @@
       x-data="{
         uploader: null,
         progress: 0,
-
+        cancel() {
+            this.uploader.abort()
+            this.uploader = null
+            this.progress = 0
+        },
         submit() {
             const file = $refs.file.files[0]
             if (!file) {
@@ -45,6 +49,10 @@
         <div>
             <div class="w-full rounded-full bg-gray-100 overflow-hidden">
                 <div class="bg-blue-500 h-4 transform-all duration-200" :style="{width: `${progress}%`}"></div>
+            </div>
+
+            <div class="flex items-center space-x-4 text-sm">
+                <button type="button" class="text-blue-500 hover:text-blue-600" @click="cancel">取消</button>
             </div>
         </div>
     </template>
