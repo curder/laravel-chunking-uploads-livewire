@@ -24,3 +24,5 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__.'/auth.php';
+
+Route::post('files', function() {})->name('files.store');
