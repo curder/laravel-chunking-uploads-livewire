@@ -52,6 +52,11 @@
             </div>
 
             <div class="flex items-center space-x-4 text-sm">
+                <button type="button" class="text-blue-500 hover:text-blue-600"
+                        x-on:click="!uploader.paused ? uploader.pause() : uploader.resume()"
+                        x-text="!uploader.paused ? '暂停' : '恢复'"
+                >暂停</button>
+
                 <button type="button" class="text-blue-500 hover:text-blue-600" @click="cancel">取消</button>
             </div>
         </div>
